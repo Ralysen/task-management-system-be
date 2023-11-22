@@ -2,15 +2,13 @@ package com.my_todo_list.my_todo_list.model;
 
 import com.my_todo_list.my_todo_list.enums.TaskStatus;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Getter
 @Setter
@@ -24,10 +22,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "task_name", nullable = false)
+    private String taskName;
 
-    private String text;
+    @Column(name = "description")
+    private String description;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -38,10 +37,19 @@ public class Task {
 
     private LocalDateTime task_deadline;
 
-    @ManyToMany(mappedBy = "tasks")
-    private List<User> users = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "task_team",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Team> teams = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "goal_id", nullable = false)
-    private Goal goal;
+    @ManyToMany
+    @JoinTable(
+            name = "task_assignees",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> assignees = new HashSet<>();
 }

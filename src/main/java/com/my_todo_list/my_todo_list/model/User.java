@@ -1,13 +1,12 @@
 package com.my_todo_list.my_todo_list.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -30,15 +29,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "users_tasks",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "ID")
-    )
-    private List<Task> tasks = new ArrayList<>();
+    @ManyToMany(mappedBy = "teamMembers")
+    private Set<Team> teams = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @ManyToMany(mappedBy = "assignees")
+    private Set<Task> assigneedTasks = new HashSet<>();
 }
