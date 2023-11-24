@@ -1,5 +1,7 @@
 package com.my_todo_list.my_todo_list.dto;
 
+import com.my_todo_list.my_todo_list.model.Task;
+import com.my_todo_list.my_todo_list.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,6 @@ public class TeamDto {
     private Long id;
     private String name;
     private String describes;
-    private Set<UserDto> teamMembers;
-
+    private Set<User> teamMembers;
+    private Set<Task> tasks;
 }

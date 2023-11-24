@@ -18,8 +18,8 @@ import java.util.Set;
 public class TaskDto {
 
     private Long id;
-    private String title;
-    private String text;
+    private String taskName;
+    private String description;
     private TaskStatus status;
     private LocalDateTime task_create_data;
     private LocalDateTime task_deadline;

@@ -23,7 +23,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -33,5 +33,5 @@ public class User {
     private Set<Team> teams = new HashSet<>();
 
     @ManyToMany(mappedBy = "assignees")
-    private Set<Task> assigneedTasks = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();
 }
